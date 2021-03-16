@@ -1,4 +1,4 @@
-package br.edu.unoesc.desafiofullstackunoesc;
+package br.edu.unoesc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
