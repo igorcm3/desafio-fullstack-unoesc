@@ -8,9 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class LoginController {
 
 	@GetMapping("/login")
-    public String home(Model model) {
+    public String login(Model model) {
         // List<Pedido> pedirdos = repo.findAll();
         // model.addAttribute("pedidos", pedidos);
         return "login";
-    }    
+    }  
+    
+	@GetMapping("/")
+    public String login_via_home(Model model) {
+        // List<Pedido> pedirdos = repo.findAll();
+        // model.addAttribute("pedidos", pedidos);
+        return "login";
+    }     
 }
