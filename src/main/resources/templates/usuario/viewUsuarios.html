@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <link th:href="@{\css\teste.css}" rel="stylesheet" />
+    <title>Lista de usuários</title>
+  </head>
+  <body>
+    <div class="logo-container mb-1 p-3 d-flex justify-content-between">
+      <span style="font-size: 2rem">Universidade</span>
+    </div>
+    <nav
+      class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3"
+    >
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="">Inscrição</a>
+        <a class="nav-item nav-link" href="">Cursos</a>
+        <a class="nav-item nav-link" href="">Disciplinas</a>
+        <a class="nav-item nav-link" href="/usuario/viewUsuarios">Usuários</a>
+      </div>
+    </nav>
+    <div class="container mt-3">
+      <h3 class="mb-3">Lista de usuários cadastrados</h3>
+      <table class="table">
+        <thead class="table-dark">
+          <th>Código</th>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Ações</th>
+        </thead>
+        <tbody>
+          <th:block th:each="user : ${usuarios}">
+            <tr>
+              <td th:text="${user.codigo}"></td>
+              <td th:text="${user.nome}"></td>
+              <td th:text="${user.cpf}"></td>
+              <td>
+                <a th:href="@{'/usuario/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a th:href="@{'/usuario/edicao/' + ${user.id}}" class="btn btn-primary btn-sm">Editar</a>
+              </td>
+            </tr>
+          </th:block>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <a href="/home/menu" class="link-secondary d-flex justify-content-end"
+        >Voltar ao menu</a
+      >
+    </div>
+
+  </body>
+</html>

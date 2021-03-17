@@ -11,8 +11,8 @@
     <title>Cadastro de usuário</title>
   </head>
   <body>
-    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
     <div class="container mt-5" style="width: 500px">
+      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
         <div class="card-header">Cadastro de usuário</div>
         <form

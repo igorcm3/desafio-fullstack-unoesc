@@ -12,27 +12,44 @@
   </head>
   <body>
     <div class="container mt-5" style="width: 300px">
+      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
-        <div class="card-header">
-            Login
-        </div>
-        <form class="card-body">
-            <div class="mb-3 col align-self-center">
-                <label for="cpf" class="form-label">CPF</label>
-                <input type="email" class="form-control" name="cpf" placeholder="Informe seu CPF">
-            </div>
-            <div class="mb-3 col align-self-center">
-                <label for="senha" class="form-label">Senha</label>
-                <input type="email" class="form-control" name="cpf" placeholder="Informe sua senha">
-            </div>           
-            <div>
-                <input class="btn btn-primary mb-4" type="submit" value="Entrar">            
-            </div>
-            <div class="d-flex justify-content-center">
-                <a href="/usuario/cadastro" class="link-secondary">Cadastre-se</a>
-            </div>
-          </form>
-          
+        <div class="card-header">Login</div>
+        <form
+          th:object="${loginDto}"
+          action="/login/sing-in"
+          class="card-body"
+          method="POST"
+        >
+          <div class="mb-3 col align-self-center">
+            <label for="CPF" class="form-label">CPF</label>
+            <input
+              th:field="*{CPF}"
+              th:errorclass="is-invalid"
+              type="text"
+              class="form-control"
+              placeholder="Informe seu CPF"
+            />
+            <small class="invalid-feedback" th:errors="*{CPF}"></small> 
+          </div>
+          <div class="mb-3 col align-self-center">
+            <label for="senha" class="form-label">Senha</label>
+            <input
+              th:field="*{senha}"
+              th:errorclass="is-invalid"
+              type="password"
+              class="form-control"
+              placeholder="Informe sua senha"
+            />
+            <small class="invalid-feedback" th:errors="*{senha}"></small> 
+          </div>
+          <div>
+            <input class="btn btn-primary mb-4" type="submit" value="Entrar" />
+          </div>
+          <div class="d-flex justify-content-center">
+            <a href="/usuario/cadastro" class="link-secondary">Cadastre-se</a>
+          </div>
+        </form>
       </div>
     </div>
   </body>

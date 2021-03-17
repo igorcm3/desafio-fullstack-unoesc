@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.edu.unoesc.dto.UsuarioDto;
+
 @Entity
 public class Usuario {
 
@@ -44,6 +46,15 @@ public class Usuario {
     }
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public UsuarioDto toUsuarioDto(){
+        UsuarioDto userDto = new UsuarioDto();
+        userDto.setCodigo(codigo);
+        userDto.setCpf(cpf);
+        userDto.setNome(nome);
+        userDto.setSenha(senha);
+        return userDto;
     }
 
 }
