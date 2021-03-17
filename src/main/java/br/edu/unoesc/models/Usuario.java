@@ -54,6 +54,7 @@ public class Usuario {
         userDto.setCpf(cpf);
         userDto.setNome(nome);
         userDto.setSenha(senha);
+        userDto.setId(id);
         return userDto;
     }
 

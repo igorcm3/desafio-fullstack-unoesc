@@ -23,35 +23,45 @@ public class UserController {
     private UsuarioRepository userRepository;
 
     @GetMapping("cadastro")
-    public String user_cad(UsuarioDto userDto, Model model){
+    public String user_cad(UsuarioDto userDto){
         return "usuario/cadastro";
     }
 
-    @GetMapping("/edicao/{id}")
+    @GetMapping("/cadastro/{id}")
     public String user_cad_edicao(@PathVariable("id") Long id, Model model){
         Usuario user = userRepository.getOne(id); 
         model.addAttribute("usuarioDto", user.toUsuarioDto());
-        model.addAttribute("id", user.getId());
         return "/usuario/cadastro";
     }
 
-    @PostMapping("novo")
-    public String novo(@Valid UsuarioDto userDto, BindingResult result, RedirectAttributes redirectAttributes){
+    @PostMapping("/novo")
+    public String novo(@Valid UsuarioDto userDto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         redirectAttributes.addFlashAttribute("message", "Erro ao salvar usuário!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         redirectAttributes.addFlashAttribute(userDto);
-
         if(result.hasErrors()){
             return "usuario/cadastro";    
         }
-        if (result.hasErrors()) {
-            return "redirect:/suggest-event";
+        if (userDto.getId() == null) {
+            redirectAttributes.addFlashAttribute("message", "Usuário salvo com sucesso!");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+            Usuario user = userDto.toUsuario();
+            userRepository.save(user);
+
+            redirectAttributes.addFlashAttribute(user.toUsuarioDto());
+            return "redirect:/usuario/cadastro";
+        }else {
+            redirectAttributes.addFlashAttribute("message", "Usuário editado com sucesso!");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+
+            Usuario user = userDto.toUsuario();
+            userRepository.save(user);
+            redirectAttributes.addFlashAttribute(user.toUsuarioDto());
+            return "redirect:/usuario/cadastro";            
         }
-        redirectAttributes.addFlashAttribute("message", "Usuário salvo com sucesso!");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-        Usuario user = userDto.toUsuario();
-        userRepository.save(user);
-        return "redirect:/usuario/cadastro";
+
+        
     }
 
     @GetMapping("viewUsuarios")

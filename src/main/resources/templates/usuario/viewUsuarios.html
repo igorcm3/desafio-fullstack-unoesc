@@ -42,7 +42,7 @@
               <td th:text="${user.cpf}"></td>
               <td>
                 <a th:href="@{'/usuario/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Excluir</a>
-                <a th:href="@{'/usuario/edicao/' + ${user.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/usuario/cadastro/' + ${user.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
           </th:block>

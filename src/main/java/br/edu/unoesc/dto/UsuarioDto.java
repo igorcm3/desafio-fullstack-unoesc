@@ -1,11 +1,12 @@
 package br.edu.unoesc.dto;
 
 import javax.validation.constraints.NotBlank;
-
+import org.springframework.beans.factory.annotation.Value;
 import br.edu.unoesc.models.Usuario;
-
 public class UsuarioDto {
 
+    private Long id;
+    
     @NotBlank(message= "O código é obrigatório")
     private String codigo;
     @NotBlank(message= "O nome é obrigatório")
@@ -45,7 +46,14 @@ public class UsuarioDto {
         user.setCpf(cpf);
         user.setNome(nome);
         user.setSenha(senha);
+        user.setId(id);
         return user;
+    }
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }    
     
 }
