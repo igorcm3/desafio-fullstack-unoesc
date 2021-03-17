@@ -1,7 +1,6 @@
 package br.edu.unoesc.dto;
 
 import javax.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Value;
 import br.edu.unoesc.models.Usuario;
 public class UsuarioDto {
 
