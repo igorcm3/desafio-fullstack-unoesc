@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
     <meta charset="utf-8" />
     <link
@@ -12,16 +13,6 @@
     <title>Home</title>
   </head>
   <body>
-    <div class="logo-container mb-1 p-3 d-flex justify-content-between">
-      <span style="font-size: 2rem">Universidade</span>
-    </div>
-    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link" href="">Inscrição</a>
-          <a class="nav-item nav-link" href="">Cursos</a>
-          <a class="nav-item nav-link" href="">Disciplinas</a>
-          <a class="nav-item nav-link" href="/usuario/viewUsuarios">Usuários</a>          
-        </div>
-      </nav>   
+    <div th:replace="fragments/topnav :: navbar"></div>
   </body>
 </html>

@@ -57,3 +57,18 @@ Atributos mínimos da inscrição:
 - Não esqueça de documentar o processo necessário para rodar a aplicação.
 
 
+## DOCUMENTAÇÃO DA IMPLEMENTAÇÃO
+
+- Para a implementação de autentcação, foi utilizado o spring security.
+* O ceonteúdo base para a implementação se encontra nos links abaixo:
+
+https://www.codejava.net/frameworks/spring-boot/spring-boot-security-authentication-with-jpa-hibernate-and-mysql
+
+https://www.codejava.net/frameworks/spring-boot/spring-boot-security-customize-login-and-logout
+
+- Para a implementação de perfil de usuários, tambem foi utilizado o Spring Secutiry
+para que fosse feita a integração com o Thuymeleaf de exibir ou não os menus de acesso.
+
+
+
+

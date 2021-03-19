@@ -1,0 +1,19 @@
+<div th:fragment="navbar">
+  <div class="logo-container mb-1 p-3 d-flex justify-content-between">
+    <span style="font-size: 2rem">Universidade</span>
+    <div>
+      <span th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</span>
+      <span sec:authentication="name"></span>
+    </div>    
+  </div>
+  <nav
+    class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3"
+  >
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="">Inscrição</a>
+      <a class="nav-item nav-link" href="">Cursos</a>
+      <a class="nav-item nav-link" href="/home/disciplina/viewDisciplinas">Disciplinas</a>
+      <a class="nav-item nav-link" href="/usuario/viewUsuarios">Usuários</a>
+    </div>    
+  </nav>
+</div>

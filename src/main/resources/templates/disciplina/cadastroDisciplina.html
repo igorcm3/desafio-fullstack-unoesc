@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+    <title>Cadastro de disciplina</title>
+  </head>
+  <body>
+    <div class="container mt-5" style="width: 500px">
+      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+      <div class="card">
+        <div class="input-field card-header">Cadastro de disciplina</div>
+        <form
+          th:object="${disciplinaDto}"
+          action="/home/disciplina/novo"
+          class="card-body"
+          method="POST"
+        >
+        <input th:field="*{id}" type="hidden"/>
+          <div class="mb-3 col align-self-center">
+            <label for="cpf" class="form-label">Código</label>
+            <input
+              th:field="*{codigo}"
+              th:errorclass="is-invalid"            
+              type="text"
+              class="form-control"
+              name="codigo"
+              placeholder="Informe o código"
+            />
+            <small class="invalid-feedback" th:errors="*{codigo}"></small>            
+          </div>
+          <div class="mb-3 col align-self-center">
+            <label for="nome" class="form-label">Nome</label>
+            <input
+              th:field="*{nome}"
+              th:errorclass="is-invalid"             
+              type="text"
+              class="form-control"
+              name="nome"
+              placeholder="Informe o nome"
+            />
+            <small class="invalid-feedback" th:errors="*{nome}"></small> 
+          </div>
+          <div>
+            <input
+              class="btn btn-success btn-lg"
+              type="submit"
+              value="Salvar"
+            />
+            <a href="/home/disciplina/viewDisciplinas" class="link-secondary d-flex justify-content-end">voltar</a>
+          </div>
+          </div>
+        </form>
+      </div>
+    </div>    
+  </body>
+</html>

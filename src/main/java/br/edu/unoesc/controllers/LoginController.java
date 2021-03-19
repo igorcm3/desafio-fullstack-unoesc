@@ -20,7 +20,7 @@ public class LoginController {
     private UsuarioRepository userRepository;
 
     @GetMapping("/login")
-    public String login(LoginDto loginDto) {
+    public String login() {
         return "login";
     }
 

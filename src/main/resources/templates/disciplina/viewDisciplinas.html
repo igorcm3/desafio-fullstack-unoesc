@@ -9,31 +9,29 @@
       crossorigin="anonymous"
     />
     <link th:href="@{\css\appbar.css}" rel="stylesheet" />
-    <title>Lista de usuários</title>
+    <title>Lista de disciplinas</title>
   </head>
   <body>
     <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container mt-3">
       <div class="d-flex justify-content-between">
-        <h3 class="mb-3">Lista de usuários cadastrados</h3>
-        <a th:href="@{/usuario/cadastro}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>
+        <h3 class="mb-3">Lista de disciplinas cadastradas</h3>
+        <a th:href="@{/home/disciplina/cadastroDisciplina}" class="btn btn-success btn-lg mb-2 mt-2">Nova</a>
       </div>
-      <table class="table">
+      <table class="table table-sm">
         <thead class="table-dark">
           <th>Código</th>
           <th>Nome</th>
-          <th>CPF</th>
           <th>Ações</th>
         </thead>
         <tbody>
-          <th:block th:each="user : ${usuarios}">
+          <th:block th:each="dis : ${disciplinas}">
             <tr>
-              <td th:text="${user.codigo}"></td>
-              <td th:text="${user.nome}"></td>
-              <td th:text="${user.cpf}"></td>
+              <td th:text="${dis.codigo}"></td>
+              <td th:text="${dis.nome}"></td>
               <td>
-                <a th:href="@{'/usuario/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Excluir</a>
-                <a th:href="@{'/usuario/cadastro/' + ${user.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/home/disciplina/delete/' + ${dis.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a th:href="@{'/home/disciplina/cadastroDisciplina/' + ${dis.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
           </th:block>

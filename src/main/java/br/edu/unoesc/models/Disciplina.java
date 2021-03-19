@@ -1,12 +1,12 @@
 package br.edu.unoesc.models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import br.edu.unoesc.dto.DisciplinaDto;
 
 @Entity
 public class Disciplina {
@@ -16,8 +16,8 @@ public class Disciplina {
     private String codigo;
     private String nome;
 
-    @ManyToMany
-    private List<Curso> cursos;
+    @ManyToOne
+    private Curso curso;
 
     public Long getId() {
         return id;
@@ -37,10 +37,18 @@ public class Disciplina {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    public List<Curso> getCursos() {
-        return cursos;
+    public Curso getCurso() {
+        return curso;
     }
-    public void setCursos(List<Curso> cursos) {
-        this.cursos = cursos;
-    }   
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    } 
+
+    public DisciplinaDto toDisciplinaDto(){
+        DisciplinaDto disciplinaDto = new DisciplinaDto();
+        disciplinaDto.setId(id);
+        disciplinaDto.setCodigo(codigo);
+        disciplinaDto.setNome(nome);
+        return disciplinaDto;
+    }
 }

@@ -1,9 +1,16 @@
 package br.edu.unoesc.models;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import br.edu.unoesc.dto.UsuarioDto;
 
@@ -16,6 +23,15 @@ public class Usuario {
     private String nome;
     private String cpf;
     private String senha;
+    private boolean enabled;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_perfil",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+            )
+    private Set<Perfil> perfil = new HashSet<>();    
 
     public Long getId() {
         return id;
@@ -56,6 +72,18 @@ public class Usuario {
         userDto.setSenha(senha);
         userDto.setId(id);
         return userDto;
+    }
+    public boolean isEnabled() {
+        return enabled;
+    }
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+    public Set<Perfil> getPerfil() {
+        return perfil;
+    }
+    public void setPerfil(Set<Perfil> perfil) {
+        this.perfil = perfil;
     }
 
 }
