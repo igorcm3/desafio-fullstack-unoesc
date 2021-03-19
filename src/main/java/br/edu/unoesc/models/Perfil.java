@@ -23,4 +23,10 @@ public class Perfil {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+    public Perfil(Long id, String tipo) {
+        this.id = id;
+        this.tipo = tipo;
+    }
+
+    public Perfil(){}
 }

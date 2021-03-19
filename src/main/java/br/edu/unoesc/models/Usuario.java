@@ -33,6 +33,19 @@ public class Usuario {
             )
     private Set<Perfil> perfil = new HashSet<>();    
 
+
+    public Usuario(Long id, String codigo, String nome, String cpf, String senha, boolean enabled, Set<Perfil> perfil) {
+        this.id = id;
+        this.codigo = codigo;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.enabled = enabled;
+        this.perfil = perfil;
+    }
+    
+    public Usuario(){}
+
     public Long getId() {
         return id;
     }

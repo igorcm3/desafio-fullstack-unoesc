@@ -13,6 +13,7 @@
   <body
     th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}"
   >
+    <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container mt-3">
       <div class="alert alert-danger" role="alert">
         <h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase} - Página não encontrada|"></h3>
