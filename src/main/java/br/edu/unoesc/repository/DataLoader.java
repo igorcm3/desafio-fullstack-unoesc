@@ -27,7 +27,7 @@ public class DataLoader {
     private void LoadUsers() {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         Set<Perfil> perfils = new HashSet<Perfil>();
-        perfils.addAll(perfilRepository.findAll());
+        perfils.add(perfilRepository.getOne(Long.valueOf(1L)));
         userRepository.save(new Usuario(Long.valueOf(1L), 
                                         "01", "admin", "200", 
                                         encoder.encode("200"), 
