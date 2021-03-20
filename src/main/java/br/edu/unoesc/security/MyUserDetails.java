@@ -23,7 +23,7 @@ public class MyUserDetails implements UserDetails{
  
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<Perfil> perfils = user.getPerfil();
+        Set<Perfil> perfils = user.getPerfils();
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
          
         for (Perfil perfil : perfils) {
@@ -60,7 +60,9 @@ public class MyUserDetails implements UserDetails{
  
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        //return user.isEnabled();
+        //TODO: Implementar o uso do campo enabled do user
+        return true;
     }    
     
 }

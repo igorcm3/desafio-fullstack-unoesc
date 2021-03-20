@@ -1,11 +1,9 @@
 package br.edu.unoesc.models;
 
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -15,10 +13,10 @@ public class Inscricao {
     private Long id;
     private String codigo;
     @OneToOne
-    private Usuario Usuario;
+    private Usuario usuario;
 
-    @OneToMany
-    private Set<Curso> cursos;
+    @OneToOne
+    private Curso curso;
 
     public Long getId() {
         return id;
@@ -37,19 +35,21 @@ public class Inscricao {
     }
 
     public Usuario getUsuario() {
-        return Usuario;
+        return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
-        Usuario = usuario;
+        this.usuario = usuario;
     }
 
-    public Set<Curso> getCursos() {
-        return cursos;
+    public Curso getCurso() {
+        return curso;
     }
 
-    public void setCursos(Set<Curso> cursos) {
-        this.cursos = cursos;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
+
+
         
 }

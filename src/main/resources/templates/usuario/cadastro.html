@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" />    
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -70,17 +71,25 @@
             <small class="invalid-feedback" th:errors="*{senha}"></small>
           </div>
 
+          <div class="mb-3" sec:authorize="hasAnyAuthority('ADMIN')">
+            <label>Perfil:</label>
+            <select class="form-control" th:field="*{id_perfil}">
+              <option th:each="p : ${listaPerfils}" th:value="${p.id}" th:text="${p.tipo}" />
+            </select>          
+          </div>          
+
           <div>
             <input
               class="btn btn-success btn-lg"
               type="submit"
               value="Salvar"
             />
-            <a href="../login" class="link-secondary d-flex justify-content-end">Voltar</a>
-            <div>
-              <a href="../login" class="link-secondary d-flex justify-content-end">Voltar</a>
+            <div sec:authorize="isAuthenticated()">
+              <a href="/usuario/viewUsuarios" class="link-secondary d-flex justify-content-end">voltar</a>
             </div>
-            
+            <div sec:authorize="!isAuthenticated()">
+              <a href="/login" class="link-secondary d-flex justify-content-end">voltar</a>
+            </div>
           </div>
           </div>
         </form>

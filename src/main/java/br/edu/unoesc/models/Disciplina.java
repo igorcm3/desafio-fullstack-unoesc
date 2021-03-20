@@ -16,9 +16,6 @@ public class Disciplina {
     private String codigo;
     private String nome;
 
-    @ManyToOne
-    private Curso curso;
-
     public Long getId() {
         return id;
     }
@@ -36,12 +33,6 @@ public class Disciplina {
     }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    public Curso getCurso() {
-        return curso;
-    }
-    public void setCurso(Curso curso) {
-        this.curso = curso;
     } 
 
     public DisciplinaDto toDisciplinaDto(){

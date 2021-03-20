@@ -1,6 +1,7 @@
 package br.edu.unoesc.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.unoesc.dto.UsuarioDto;
+import br.edu.unoesc.models.Perfil;
 import br.edu.unoesc.models.Usuario;
+import br.edu.unoesc.repository.PerfilRepository;
 import br.edu.unoesc.repository.UsuarioRepository;
 
 @Controller
@@ -26,8 +29,14 @@ public class UserController {
     @Autowired
     private UsuarioRepository userRepository;
 
+    @Autowired
+    private PerfilRepository perfilRepository;    
+
     @GetMapping("cadastro")
-    public String user_cad(UsuarioDto userDto){
+    public String user_cad(UsuarioDto userDto, Model model){
+        List<Perfil> listaPerfils = perfilRepository.findAll();
+
+        model.addAttribute("listaPerfils", listaPerfils);
         return "usuario/cadastro";
     }
 
@@ -35,6 +44,8 @@ public class UserController {
     public String user_cad_edicao(@PathVariable("id") Long id, Model model){
         Usuario user = userRepository.getOne(id); 
         model.addAttribute("usuarioDto", user.toUsuarioDto());
+        List<Perfil> listaPerfils = perfilRepository.findAll();
+        model.addAttribute("listaPerfils",  listaPerfils);   
         return "/usuario/cadastro";
     }
 
@@ -46,31 +57,27 @@ public class UserController {
         if(result.hasErrors()){
             return "usuario/cadastro";    
         }
-
         // Criptografando a senha
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String senhaCriptografada = encoder.encode(userDto.getSenha());
         userDto.setSenha(senhaCriptografada);
 
-
-        if (userDto.getId() == null) {
-            redirectAttributes.addFlashAttribute("message", "Usuário salvo com sucesso!");
-            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-
-            Usuario user = userDto.toUsuario();
-            userRepository.save(user);
-
-            redirectAttributes.addFlashAttribute(user.toUsuarioDto());
-            return "redirect:/usuario/cadastro";
-        }else {
-            redirectAttributes.addFlashAttribute("message", "Usuário editado com sucesso!");
-            redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-
-            Usuario user = userDto.toUsuario();
-            userRepository.save(user);
-            redirectAttributes.addFlashAttribute(user.toUsuarioDto());
-            return "redirect:/usuario/cadastro";            
+        Usuario user = userDto.toUsuario();
+        Optional<Perfil> perfil;
+        if(userDto.getId_perfil() > 0){
+            perfil = perfilRepository.findById(Long.valueOf(userDto.getId_perfil()));
+        }else{
+            perfil = perfilRepository.findById(Long.valueOf(3L)); // padrão insere como aluno
         }
+        
+        user.setPerfils(perfil);
+        String opcao = userDto.getId() == null ? "salvo" : "alterado";  
+        redirectAttributes.addFlashAttribute("message", "Usuário "+opcao+" com sucesso!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");
+        userRepository.save(user);
+        redirectAttributes.addFlashAttribute(user.toUsuarioDto());
+        return "redirect:/usuario/cadastro";            
+        
     }
 
     @GetMapping("viewUsuarios")

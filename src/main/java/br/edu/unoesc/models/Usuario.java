@@ -1,7 +1,9 @@
 package br.edu.unoesc.models;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import br.edu.unoesc.dto.PerfilDto;
 import br.edu.unoesc.dto.UsuarioDto;
 
 @Entity
@@ -31,17 +34,17 @@ public class Usuario {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
             )
-    private Set<Perfil> perfil = new HashSet<>();    
+    private Set<Perfil> perfils = new HashSet<>();    
 
 
-    public Usuario(Long id, String codigo, String nome, String cpf, String senha, boolean enabled, Set<Perfil> perfil) {
+    public Usuario(Long id, String codigo, String nome, String cpf, String senha, boolean enabled, Set<Perfil> perfils) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
         this.enabled = enabled;
-        this.perfil = perfil;
+        this.perfils = perfils;
     }
     
     public Usuario(){}
@@ -84,19 +87,33 @@ public class Usuario {
         userDto.setNome(nome);
         userDto.setSenha(senha);
         userDto.setId(id);
+        userDto.setPerfilsDto(prepararSetPerfilsDto());
         return userDto;
     }
+
+    Set<PerfilDto>prepararSetPerfilsDto(){
+        Set<PerfilDto> perfilsDto = new HashSet<PerfilDto>();
+        for(Perfil perfil : this.perfils){
+            perfilsDto.add(perfil.toPerfilDto());
+        }
+        return perfilsDto;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    public Set<Perfil> getPerfil() {
-        return perfil;
+    public Set<Perfil> getPerfils() {
+        return perfils;
     }
-    public void setPerfil(Set<Perfil> perfil) {
-        this.perfil = perfil;
+    public void setPerfils(Set<Perfil> perfil) {
+        this.perfils = perfil;
+    }
+
+    public void setPerfils(Optional<Perfil> perfil) {
+        perfils.add(perfil.get());
     }
 
 }
