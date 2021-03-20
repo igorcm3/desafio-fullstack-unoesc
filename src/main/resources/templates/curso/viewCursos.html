@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head th:replace="fragments/head :: head">
-    <title>Lista de disciplinas</title>
+    <title>Lista de cursos</title>
   </head>
   <body>
     <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container-sm mt-3">
       <div class="d-flex justify-content-between">
         <h3 class="mb-3">Lista de disciplinas cadastradas</h3>
-        <a th:href="@{/home/disciplina/cadastroDisciplina}" class="btn btn-success btn-lg mb-2 mt-2">Nova</a>
+        <a th:href="@{/home/curso/cadastroCurso}" class="btn btn-success btn-lg mb-2 mt-2">Nova</a>
       </div>
       <table class="table">
         <thead class="table-dark">
@@ -17,13 +17,13 @@
           <th>Ações</th>
         </thead>
         <tbody>
-          <th:block th:each="dis : ${disciplinas}">
+          <th:block th:each="curso : ${cursos}">
             <tr>
-              <td th:text="${dis.codigo}"></td>
-              <td th:text="${dis.nome}"></td>
+              <td th:text="${curso.codigo}"></td>
+              <td th:text="${curso.nome}"></td>
               <td>
-                <a th:href="@{'/home/disciplina/delete/' + ${dis.id}}" class="btn btn-danger btn-sm">Excluir</a>
-                <a th:href="@{'/home/disciplina/cadastroDisciplina/' + ${dis.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/home/curso/delete/' + ${curso.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a th:href="@{'/home/curso/cadastroDisciplina/' + ${curso.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
           </th:block>

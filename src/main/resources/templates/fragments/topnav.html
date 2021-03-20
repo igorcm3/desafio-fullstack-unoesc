@@ -1,12 +1,15 @@
 <div th:fragment="navbar">
-  <div class="logo-container mb-1 p-3 d-flex justify-content-between">
-    <span style="font-size: 2rem">Universidade</span>
+  <nav class="navbar navbar-dark bg-primary">
+    
+    <a class="nav-item link-light" href="/home/menu">
+      <span style="font-size: 2rem">Universidade</span>  
+    </a>
     <span sec:authorize="isAuthenticated()">Usuário logado: <span sec:authentication="name"></span>
     <br> 
-    Perfil: <span sec:authentication="principal.authorities"></span>
-    <a class="btn btn-outline-light" th:href="@{/logout}">Sair</a>
-  </span>      
-  </div>
+      Perfil: <span sec:authentication="principal.authorities"></span><br>
+      <a class="btn btn-dark" th:href="@{/logout}">Sair</a>
+    </span>      
+  </nav>
   <nav
     class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3"
   >
@@ -15,7 +18,7 @@
         <a class="nav-item nav-link" href="">Inscrição</a>
       </div>      
       <div sec:authorize="hasAnyAuthority('ALUNO', 'ADMIN')">
-        <a class="nav-item nav-link" href="">Cursos</a>
+        <a class="nav-item nav-link" href="/home/curso/viewCursos">Cursos</a>
       </div> 
       <div sec:authorize="hasAnyAuthority('PROFESSOR', 'ADMIN')">     
         <a class="nav-item nav-link" href="/home/disciplina/viewDisciplinas">Disciplinas</a>

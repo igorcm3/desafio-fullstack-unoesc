@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.edu.unoesc.dto.CursoDto;
 import br.edu.unoesc.dto.DisciplinaDto;
+import br.edu.unoesc.models.Curso;
 import br.edu.unoesc.models.Disciplina;
+import br.edu.unoesc.repository.CursoRepository;
 import br.edu.unoesc.repository.DisciplinaRepository;
 
 @Controller
@@ -24,12 +27,17 @@ public class HomeController {
 
     @Autowired
     DisciplinaRepository disciplinaRepository;
+    @Autowired
+    CursoRepository cursoRepository;
 
     @GetMapping("menu")
     public String home(){
         return "menu/home";
     }  
     
+    
+    /*------------------ Disciplinas -----------------------*/
+
     @GetMapping("disciplina/viewDisciplinas")
     public String viewDisciplina(Model model){
         List<Disciplina> disciplinas = disciplinaRepository.findAll();
@@ -70,6 +78,24 @@ public class HomeController {
         redirectAttributes.addFlashAttribute(disciplina.toDisciplinaDto());
         disciplinaRepository.save(disciplina);
         return "redirect:/home/disciplina/cadastroDisciplina";        
+    }   
+
+
+    /*---------- Cursos----------*/
+
+    @GetMapping("curso/viewCursos")
+    public String viewCursos(Model model){
+        List<Curso> cursos = cursoRepository.findAll();
+        model.addAttribute("cursos", cursos);
+        return "curso/viewCursos";
+    }
+    
+    @GetMapping("curso/cadastroCurso")
+    public String cursoCadastro(CursoDto cursoDto){
+        return "curso/cadastroCurso";
     }    
+
+
+
     
 }

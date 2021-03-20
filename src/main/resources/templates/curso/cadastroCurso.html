@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head th:replace="fragments/head :: head">
-    <title>Cadastro de disciplina</title>
+    <title>Cadastro de cursos</title>
   </head>
   <body>
     <div class="container mt-5" style="width: 500px">
       <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
-        <div class="input-field card-header">Cadastro de disciplina</div>
+        <div class="input-field card-header">Cadastro de cursos</div>
         <form
-          th:object="${disciplinaDto}"
-          action="/home/disciplina/novo"
+          th:object="${cursoDto}"
+          action="/home/curso/novo"
           class="card-body"
           method="POST"
         >
@@ -39,6 +39,18 @@
             />
             <small class="invalid-feedback" th:errors="*{nome}"></small> 
           </div>
+          <div class="mb-3 col align-self-center">
+            <label for="vagas" class="form-label">Vagas</label>
+            <input
+              th:field="*{vagas}"
+              th:errorclass="is-invalid"             
+              type="text"
+              class="form-control"
+              name="nome"
+              placeholder="Informe a quantidade de vagas"
+            />
+            <small class="invalid-feedback" th:errors="*{vagas}"></small> 
+          </div>          
           <div>
             <input
               class="btn btn-success btn-lg"

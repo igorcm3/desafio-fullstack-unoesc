@@ -80,6 +80,9 @@ public class UsuarioDto {
     }
     public void setPerfilsDto(Set<PerfilDto> perfils) {
         this.perfilsDto = perfils;
+        for (PerfilDto p : perfilsDto){
+            this.id_perfil = (int) (long) p.getId();
+        }         
     }
     public PerfilDto getPerfilDto() {
         return perfilDto;
