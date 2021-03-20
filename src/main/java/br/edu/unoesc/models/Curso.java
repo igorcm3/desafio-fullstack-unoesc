@@ -1,10 +1,13 @@
 package br.edu.unoesc.models;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,8 +19,10 @@ public class Curso {
     private String nome;
     private Integer vagas;
 
+    // PERSISTENT gera um update na disciplina alterando seu curso_id
     @OneToMany
-    private List<Disciplina> disciplinas;
+    @JoinColumn(name="curso_id")
+    List<Disciplina> disciplinas = new ArrayList<>();
     
     public Long getId() {
         return id;
@@ -49,6 +54,5 @@ public class Curso {
     public void setDisciplinas(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;
     }
-
     
 }

@@ -83,17 +83,44 @@ public class HomeController {
 
     /*---------- Cursos----------*/
 
-    @GetMapping("curso/viewCursos")
+    @GetMapping("curso/viewCursos") 
     public String viewCursos(Model model){
         List<Curso> cursos = cursoRepository.findAll();
         model.addAttribute("cursos", cursos);
         return "curso/viewCursos";
     }
     
-    @GetMapping("curso/cadastroCurso")
-    public String cursoCadastro(CursoDto cursoDto){
+    @GetMapping("curso/new")
+    public String cursoCadastro(CursoDto cursoDto, Model model){
+        List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
+        model.addAttribute("curso", new Curso());
+        model.addAttribute("listaDisciplinas", listaDisciplinas);
+
         return "curso/cadastroCurso";
     }    
+
+    @PostMapping("curso/save")
+    public String saveCurso(Curso curso){
+        cursoRepository.save(curso);
+        return "redirect:/home/curso/viewCursos";
+    }
+
+    @GetMapping("curso/edit/{id}")
+    public String showEditCursoForm(@PathVariable("id") Long id, Model model){
+        Curso curso = cursoRepository.findById(id).get(); 
+        List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
+        model.addAttribute("curso", curso);
+        model.addAttribute("listaDisciplinas", listaDisciplinas);
+        return "/curso/cadastroCurso";
+    } 
+
+    @GetMapping("/curso/delete/{id}")
+    public String deleteCurso(@PathVariable("id") Long id){        
+        cursoRepository.deleteById(id);           
+        return "redirect:/home/curso/viewCursos";
+    }    
+
+
 
 
 

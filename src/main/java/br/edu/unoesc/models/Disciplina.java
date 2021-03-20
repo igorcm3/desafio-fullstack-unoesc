@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.edu.unoesc.dto.DisciplinaDto;
-
+ 
 @Entity
 public class Disciplina {
 
@@ -15,6 +16,10 @@ public class Disciplina {
     private Long id;
     private String codigo;
     private String nome;
+    
+    @ManyToOne
+    @JoinColumn(name="curso_id")
+    private Curso curso;
 
     public Long getId() {
         return id;
@@ -41,5 +46,11 @@ public class Disciplina {
         disciplinaDto.setCodigo(codigo);
         disciplinaDto.setNome(nome);
         return disciplinaDto;
+    }
+    public Curso getCurso() {
+        return curso;
+    }
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 }

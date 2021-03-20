@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head">
     <title>Cadastro de cursos</title>
   </head>
   <body>
-    <div class="container mt-5" style="width: 500px">
+    <div class="container mt-5 mb-5" style="width: 500px">
       <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
-        <div class="input-field card-header">Cadastro de cursos</div>
+        <div th:if="${curso.id == null}" class="input-field card-header">Novo curso</div>
+        <div th:unless="${curso.id == null}" class="input-field card-header">Edição de curso</div>
         <form
-          th:object="${cursoDto}"
-          action="/home/curso/novo"
+          th:object="${curso}"
+          action="/home/curso/save"
           class="card-body"
           method="POST"
         >
@@ -44,13 +45,25 @@
             <input
               th:field="*{vagas}"
               th:errorclass="is-invalid"             
-              type="text"
+              type="number"
               class="form-control"
               name="nome"
               placeholder="Informe a quantidade de vagas"
             />
             <small class="invalid-feedback" th:errors="*{vagas}"></small> 
-          </div>          
+          </div>     
+          <div class="mb-3 col align-self-center"> 
+            <label for="disciplinas" class="form-label">Selecione uma ou mais disciplinas</label>
+            <select
+              th:field="*{disciplinas}" 
+              class="form-select" 
+              multiple = "multiple"
+              required>
+              <th:block th:each="dis : ${listaDisciplinas}">
+                <option th:value="${dis.id}" th:text="${dis.nome}"/>
+              </th:block>
+            </select> 
+          </div>
           <div>
             <input
               class="btn btn-success btn-lg"
