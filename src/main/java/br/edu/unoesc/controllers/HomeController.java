@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.unoesc.dto.CursoDto;
 import br.edu.unoesc.dto.DisciplinaDto;
 import br.edu.unoesc.models.Curso;
 import br.edu.unoesc.models.Disciplina;
@@ -91,7 +90,7 @@ public class HomeController {
     }
     
     @GetMapping("curso/new")
-    public String cursoCadastro(CursoDto cursoDto, Model model){
+    public String cursoCadastro(Model model){
         List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
         model.addAttribute("curso", new Curso());
         model.addAttribute("listaDisciplinas", listaDisciplinas);

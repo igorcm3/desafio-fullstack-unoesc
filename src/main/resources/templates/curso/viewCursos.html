@@ -15,7 +15,7 @@
           <th>Código</th>
           <th>Nome</th>
           <th>Disciplinas</th>
-          <th>Ações</th>
+          <th sec:authorize="hasAnyAuthority('ADMIN')">Ações</th>
         </thead>
         <tbody>
           <th:block th:each="curso : ${cursos}">
@@ -23,7 +23,7 @@
               <td th:text="${curso.codigo}"></td>
               <td th:text="${curso.nome}"></td>
               <td th:text="${curso.disciplinas}"></td>
-              <td>
+              <td sec:authorize="hasAnyAuthority('ADMIN')">
                 <a th:href="@{'/home/curso/delete/' + ${curso.id}}" class="btn btn-danger btn-sm">Excluir</a>
                 <a th:href="@{'/home/curso/edit/' + ${curso.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>

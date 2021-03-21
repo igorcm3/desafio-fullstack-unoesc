@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/head :: head">
+    <title>Inscrição no curso</title>
+  </head>
+  <body>
+    <div th:replace="fragments/topnav :: navbar"></div>
+    <div class="container-sm mt-3 mb-5" style="width: 420px">
+      <div th:if="${inscricao.id == null}">
+          <div class="d-flex justify-content-center">
+            <h3>Sem inscrições até o momento</h3>  
+          </div>
+          <div class="d-flex justify-content-center">
+            <a th:href="@{/inscricao/new}" class="link-primary">
+                <span style="font-size: 1.7rem">Inscreva-se em um curso</span>
+            </a>
+          </div>
+      </div>
+      <div th:if="${inscricao.id != null}" class="d-flex justify-content-between">
+        <h3 class="mb-3">Inscrição no curso</h3>
+        <a th:href="@{'/inscricao/edit/' + ${inscricao.id}}" class="btn btn-success btn-lg mb-2 mt-2">Alterar curso</a>
+      </div>      
+
+
+      <div th:if="${inscricao.id != null}">
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${curso.nome}" class="card-title"></h5>  
+            </div>            
+            <div class="card-body">
+                <h5 class="card-text">Dados do aluno</h5>
+                <span class="card-text">
+                  Código: <span th:text="${usuario.codigo}"/><br>
+                  Nome: <span th:text="${usuario.nome}"/><br>
+                  CPF: <span th:text="${usuario.cpf}"/><br>
+                </span>
+                <div class="card mt-3" >
+                    <div class="card-header">   
+                        <h5 class="card-title">Disciplinas</h5>  
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <th:block th:each="dis : ${disciplinas}">
+                                <li th:text=*{dis.nome} class="list-group-item"></li>
+                            </th:block>
+                        </ul>
+                    </div>                 
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

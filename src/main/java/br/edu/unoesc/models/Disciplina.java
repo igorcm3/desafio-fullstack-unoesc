@@ -53,4 +53,9 @@ public class Disciplina {
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 }

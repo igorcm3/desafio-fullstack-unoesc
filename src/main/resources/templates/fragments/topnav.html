@@ -1,21 +1,29 @@
 <div th:fragment="navbar">
-  <nav class="navbar navbar-dark bg-primary">
+  <nav class="navbar navbar-dark" style="background-color:#457EAC; color: white;">
+    <li class="nav-item nav-link">
+      <a class="navbar-brand" href="/home/menu">Universidade</a>
+    </li>
+    <li class="nav-item nav-link">
+            <button type="button" style="background-color:transparent; color:white"class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <span>
+                <span sec:authentication="principal.authorities"></span>
+                <span sec:authorize="isAuthenticated()">:  
+                <span sec:authentication="name"></span>
+              </span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" th:href="@{/logout}">Action</a></li>
+            </ul>
+            <a class="dropdown-item" th:href="@{/logout}">sair</a>
+    </li>
     
-    <a class="nav-item link-light" href="/home/menu">
-      <span style="font-size: 2rem">Universidade</span>  
-    </a>
-    <span sec:authorize="isAuthenticated()">Usuário logado: <span sec:authentication="name"></span>
-    <br> 
-      Perfil: <span sec:authentication="principal.authorities"></span><br>
-      <a class="btn btn-dark" th:href="@{/logout}">Sair</a>
-    </span>      
   </nav>
   <nav
     class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3"
   >
     <div class="navbar-nav">
       <div sec:authorize="hasAnyAuthority('ALUNO')">
-        <a class="nav-item nav-link" href="">Inscrição</a>
+        <a class="nav-item nav-link" href="/inscricao/inscricoes">Inscrição</a>
       </div>      
       <div sec:authorize="hasAnyAuthority('ALUNO', 'ADMIN')">
         <a class="nav-item nav-link" href="/home/curso/viewCursos">Cursos</a>
