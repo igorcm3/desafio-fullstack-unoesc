@@ -33,12 +33,15 @@
         <tfoot sec:authorize="hasAnyAuthority('PROFESSOR')">
           <td> 
             Imprimir disciplinas
-            <a href="#" class="link-success" style="padding-left: 15px;">CSV</a>  
-            <a href="#" class="link-dark" style="padding-left: 15px;">XLS</a> 
-            <a href="#" class="link-primary" style="padding-left: 15px;">PDF</a> 
+            <a th:href="@{'/report/disciplina/'+csv}" class="link-success" style="padding-left: 15px;">CSV</a>  
+            <a th:href="@{'/report/disciplina/'+xls}" style="padding-left: 15px;">XLS</a> 
+            <a th:href="@{'/report/disciplina/'+pdf}" style="padding-left: 15px;">PDF</a> 
           </td>
         </tfoot>        
       </table>
+
+      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
     </div>
   </body>
 </html>

@@ -1,4 +1,4 @@
-package br.edu.unoesc.repository;
+package br.edu.unoesc.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import br.edu.unoesc.models.Usuario;
+import br.edu.unoesc.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
