@@ -34,11 +34,6 @@ public class LoginController {
         if (user != null) {
             
             if (user.getSenha().equals(loginDto.getSenha())) {
-                // if (u.getRole().getName().equalsIgnoreCase("user")) {
-                //     page = "userpage";
-                // } else {
-                //     page = "adminpage";
-                // }
                 page = "redirect:/home/menu";
             }
             else{

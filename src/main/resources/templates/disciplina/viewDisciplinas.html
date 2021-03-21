@@ -7,27 +7,37 @@
     <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container-sm mt-3">
       <div class="d-flex justify-content-between">
-        <h3 class="mb-3">Lista de disciplinas cadastradas</h3>
-        <a th:href="@{/home/disciplina/cadastroDisciplina}" class="btn btn-success btn-lg mb-2 mt-2">Nova</a>
+        <h3 class="mb-3">Lista de disciplinas</h3>        
+        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/home/disciplina/cadastroDisciplina}" class="btn btn-success btn-lg mb-2 mt-2">Nova</a>
       </div>
       <table class="table">
         <thead class="table-dark">
           <th>Código</th>
           <th>Nome</th>
-          <th>Ações</th>
+          <th>Professor</th>
+          <th sec:authorize="hasAnyAuthority('ADMIN')">Ações</th>
         </thead>
         <tbody>
           <th:block th:each="dis : ${disciplinas}">
             <tr>
               <td th:text="${dis.codigo}"></td>
               <td th:text="${dis.nome}"></td>
-              <td>
+              <td th:text="${dis.professor}"></td>
+              <td sec:authorize="hasAnyAuthority('ADMIN')">
                 <a th:href="@{'/home/disciplina/delete/' + ${dis.id}}" class="btn btn-danger btn-sm">Excluir</a>
                 <a th:href="@{'/home/disciplina/cadastroDisciplina/' + ${dis.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
           </th:block>
         </tbody>
+        <tfoot sec:authorize="hasAnyAuthority('PROFESSOR')">
+          <td> 
+            Imprimir disciplinas
+            <a href="#" class="link-success" style="padding-left: 15px;">CSV</a>  
+            <a href="#" class="link-dark" style="padding-left: 15px;">XLS</a> 
+            <a href="#" class="link-primary" style="padding-left: 15px;">PDF</a> 
+          </td>
+        </tfoot>        
       </table>
     </div>
   </body>

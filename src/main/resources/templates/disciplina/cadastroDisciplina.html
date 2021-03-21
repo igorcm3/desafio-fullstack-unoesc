@@ -9,7 +9,7 @@
       <div class="card">
         <div class="input-field card-header">Cadastro de disciplina</div>
         <form
-          th:object="${disciplinaDto}"
+          th:object="${disciplina}"
           action="/home/disciplina/novo"
           class="card-body"
           method="POST"
@@ -39,6 +39,21 @@
             />
             <small class="invalid-feedback" th:errors="*{nome}"></small> 
           </div>
+
+          <label>Professor:</label>
+          <select 
+            th:field="*{professor}" 
+            class="form-select mb-3" 
+            aria-label="Default select example"
+            required
+          >
+            <option 
+              th:each="p : ${listaProfessores}" 
+              th:value="${p.id}" 
+              th:text="${p.nome}"
+              th:field="*{professor}" />
+          </select> 
+
           <div>
             <input
               class="btn btn-success btn-lg"

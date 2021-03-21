@@ -1,6 +1,8 @@
 package br.edu.unoesc.models;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import br.edu.unoesc.dto.PerfilDto;
 import br.edu.unoesc.dto.UsuarioDto;
@@ -27,6 +30,10 @@ public class Usuario {
     private String cpf;
     private String senha;
     private boolean enabled;
+
+    @OneToMany
+    @JoinColumn(name="professor_id")
+    List<Disciplina> disciplinas = new ArrayList<>();    
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -48,6 +55,19 @@ public class Usuario {
     }
     
     public Usuario(){}
+
+    public Boolean isProfessor(){
+        Boolean result = false;
+        for(Perfil perfil : perfils){
+            result = perfil.getTipo().equals("PROFESSOR");
+        }
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
 
     public Long getId() {
         return id;
@@ -114,6 +134,14 @@ public class Usuario {
 
     public void setPerfils(Optional<Perfil> perfil) {
         perfils.add(perfil.get());
+    }
+
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas = disciplinas;
     }
 
 }

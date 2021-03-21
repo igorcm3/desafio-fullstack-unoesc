@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.unoesc.dto.DisciplinaDto;
 import br.edu.unoesc.models.Curso;
 import br.edu.unoesc.models.Disciplina;
+import br.edu.unoesc.models.Usuario;
 import br.edu.unoesc.repository.CursoRepository;
 import br.edu.unoesc.repository.DisciplinaRepository;
+import br.edu.unoesc.repository.UsuarioRepository;
+import br.edu.unoesc.repository.UsuarioService;
 
 @Controller
 @RequestMapping("home")
@@ -28,6 +30,10 @@ public class HomeController {
     DisciplinaRepository disciplinaRepository;
     @Autowired
     CursoRepository cursoRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
+    @Autowired
+    UsuarioService usuarioService;    
 
     @GetMapping("menu")
     public String home(){
@@ -39,19 +45,30 @@ public class HomeController {
 
     @GetMapping("disciplina/viewDisciplinas")
     public String viewDisciplina(Model model){
-        List<Disciplina> disciplinas = disciplinaRepository.findAll();
+        Usuario userLogado = usuarioService.getUsuarioLogado();
+        List<Disciplina> disciplinas;
+        if(userLogado.isProfessor()){
+            disciplinas = disciplinaRepository.findByIdProfessor(userLogado.getId());
+        }else{
+            // Se não é professor, então é admin e tem acesso a todos.
+            disciplinas = disciplinaRepository.findAll();
+        }
         model.addAttribute("disciplinas", disciplinas);
         return "disciplina/viewDisciplinas";
     }
     @GetMapping("disciplina/cadastroDisciplina")
-    public String disciplinaCadastro(DisciplinaDto disciplinaDto){
+    public String showDisciplinaForm(Model model){
+        //  Perfil = 2 -> Professor
+        List<Usuario> listaProfessores = usuarioRepository.findAll();
+        model.addAttribute("disciplina", new Disciplina());
+        model.addAttribute("listaProfessores", listaProfessores);
         return "disciplina/cadastroDisciplina";
     }
 
     @GetMapping("/disciplina/cadastroDisciplina/{id}")
     public String disciplinaEdicao(@PathVariable("id") Long id, Model model){
-        Disciplina disciplina = disciplinaRepository.getOne(id); 
-        model.addAttribute("disciplinaDto", disciplina.toDisciplinaDto());
+        Disciplina disciplina = disciplinaRepository.findById(id).get(); 
+        model.addAttribute("disciplina", disciplina);
         return "/disciplina/cadastroDisciplina";
     }    
 
@@ -62,19 +79,18 @@ public class HomeController {
     }
 
     @PostMapping("/disciplina/novo")
-    public String novaDisciplina(@Valid DisciplinaDto disciplinaDto, BindingResult result, RedirectAttributes redirectAttributes, Model model){
+    public String novaDisciplina(@Valid Disciplina disciplina, BindingResult result, RedirectAttributes redirectAttributes, Model model){
         redirectAttributes.addFlashAttribute("message", "Erro ao salvar disciplina!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
-        redirectAttributes.addFlashAttribute(disciplinaDto);
+        redirectAttributes.addFlashAttribute(disciplina);
         if(result.hasErrors()){
             return "/disciplina/cadastroDisciplina";    
         }
-        Disciplina disciplina = disciplinaDto.toDisciplina();
 
-        String operacao = disciplinaDto.getId() == null ? "inserida" : "alterada";
+        String operacao = disciplina.getId() == null ? "inserida" : "alterada";
         redirectAttributes.addFlashAttribute("message", "Disciplina "+operacao+" com sucesso!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
-        redirectAttributes.addFlashAttribute(disciplina.toDisciplinaDto());
+        redirectAttributes.addFlashAttribute(disciplina);
         disciplinaRepository.save(disciplina);
         return "redirect:/home/disciplina/cadastroDisciplina";        
     }   

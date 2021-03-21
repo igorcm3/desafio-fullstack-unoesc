@@ -18,7 +18,7 @@ import br.edu.unoesc.models.Inscricao;
 import br.edu.unoesc.models.Usuario;
 import br.edu.unoesc.repository.CursoRepository;
 import br.edu.unoesc.repository.InscricaoRepository;
-import br.edu.unoesc.repository.UsuarioRepository;
+import br.edu.unoesc.repository.UsuarioService;
 
 @Controller
 @RequestMapping("inscricao")
@@ -27,16 +27,14 @@ public class InscricaoController {
     @Autowired
     InscricaoRepository inscricaoRepository;
     @Autowired
-    UsuarioRepository userRepository;
+    UsuarioService usuarioService;
     @Autowired
     CursoRepository cursoRepository;
 
     @GetMapping("/inscricoes")
     public String exibirInscricao(Model model){
 
-        // Recuperando o usuario autenticado ALUNO, que será inserido na inscrição
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Usuario userLogado = userRepository.findByCpf((((UserDetails)authentication.getPrincipal()).getUsername())); 
+        Usuario userLogado = usuarioService.getUsuarioLogado();
         if (userLogado == null){
             model.addAttribute("inscricao", new Inscricao());
             return "inscricao/inscricoes";
@@ -62,14 +60,12 @@ public class InscricaoController {
         List<Curso> listaCursos = cursoRepository.findAll();
         model.addAttribute("inscricao", new Inscricao());
         model.addAttribute("listaCursos", listaCursos);
-        model.addAttribute("idCurso", 0);
         return "inscricao/inscricao_form";
     }      
 
     @PostMapping("/save")
     public String saveInscricao(Inscricao inscricao, Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Usuario userLogado = userRepository.findByCpf((((UserDetails)authentication.getPrincipal()).getUsername()));         
+        Usuario userLogado = usuarioService.getUsuarioLogado();
         inscricao.setUsuario(userLogado);
         inscricaoRepository.save(inscricao);
         model.addAttribute("inscricao", inscricao);

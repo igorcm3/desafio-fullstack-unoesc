@@ -7,8 +7,8 @@
     <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container-sm mt-3">
       <div class="d-flex justify-content-between">
-        <h3 class="mb-3">Lista de disciplinas cadastradas</h3>
-        <a th:href="@{/home/curso/new}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>
+        <h3 class="mb-3">Lista de cursos</h3>
+        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/home/curso/new}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>        
       </div>
       <table class="table">
         <thead class="table-dark">
