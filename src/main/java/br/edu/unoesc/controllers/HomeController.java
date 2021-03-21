@@ -20,7 +20,6 @@ import br.edu.unoesc.models.Usuario;
 import br.edu.unoesc.repository.CursoRepository;
 import br.edu.unoesc.repository.DisciplinaRepository;
 import br.edu.unoesc.repository.UsuarioRepository;
-import br.edu.unoesc.repository.UsuarioService;
 
 @Controller
 @RequestMapping("home")
@@ -53,7 +52,7 @@ public class HomeController {
             // Se não é professor, então é admin e tem acesso a todos.
             disciplinas = disciplinaRepository.findAll();
         }
-        model.addAttribute("disciplinas", disciplinas);
+        model.addAttribute("disciplinas", disciplinas);        
         return "disciplina/viewDisciplinas";
     }
     @GetMapping("disciplina/cadastroDisciplina")

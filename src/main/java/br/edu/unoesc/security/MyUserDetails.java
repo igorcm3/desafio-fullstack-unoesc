@@ -60,8 +60,6 @@ public class MyUserDetails implements UserDetails{
  
     @Override
     public boolean isEnabled() {
-        //return user.isEnabled();
-        //TODO: Implementar o uso do campo enabled do user
         return true;
     }    
     

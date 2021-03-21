@@ -31,7 +31,7 @@ public class DataLoader {
         userRepository.save(new Usuario(Long.valueOf(1L), 
                                         "01", "admin", "200", 
                                         encoder.encode("200"), 
-                                        true, perfils)
+                                        perfils)
                             );
     }  
     

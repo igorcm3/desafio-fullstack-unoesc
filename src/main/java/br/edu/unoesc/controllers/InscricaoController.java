@@ -15,7 +15,6 @@ import br.edu.unoesc.models.Inscricao;
 import br.edu.unoesc.models.Usuario;
 import br.edu.unoesc.repository.CursoRepository;
 import br.edu.unoesc.repository.InscricaoRepository;
-import br.edu.unoesc.repository.UsuarioService;
 
 @Controller
 @RequestMapping("inscricao")

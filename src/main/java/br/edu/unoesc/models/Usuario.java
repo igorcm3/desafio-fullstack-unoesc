@@ -29,7 +29,6 @@ public class Usuario {
     private String nome;
     private String cpf;
     private String senha;
-    private boolean enabled;
 
     @OneToMany
     @JoinColumn(name="professor_id")
@@ -44,13 +43,12 @@ public class Usuario {
     private Set<Perfil> perfils = new HashSet<>();    
 
 
-    public Usuario(Long id, String codigo, String nome, String cpf, String senha, boolean enabled, Set<Perfil> perfils) {
+    public Usuario(Long id, String codigo, String nome, String cpf, String senha, Set<Perfil> perfils) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
-        this.enabled = enabled;
         this.perfils = perfils;
     }
     
@@ -119,12 +117,6 @@ public class Usuario {
         return perfilsDto;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
     public Set<Perfil> getPerfils() {
         return perfils;
     }

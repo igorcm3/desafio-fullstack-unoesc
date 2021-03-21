@@ -2,8 +2,6 @@ package br.edu.unoesc.controllers;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
 import br.edu.unoesc.models.Disciplina;
+import br.edu.unoesc.models.Usuario;
 import br.edu.unoesc.repository.DisciplinaRepository;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -22,9 +21,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
-import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleCsvExporterConfiguration;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
@@ -35,13 +32,13 @@ import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 public class ReportService {
     @Autowired
     DisciplinaRepository disciplinaRepository;
+    @Autowired
+    UsuarioService usuarioService;     
 
     public String exportReport(String reportFormat) throws FileNotFoundException, JRException{
-        // List<Disciplina> listaDisciplinas = disciplinaRepository.findByIdProfessor(id);
-        
+        Usuario userLogado = usuarioService.getUsuarioLogado();
+        List<Disciplina> listaDisciplinas = disciplinaRepository.findByIdProfessor(userLogado.getId());
         String path = "C:\\Users\\Public\\Downloads";
-
-        List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
         File file = ResourceUtils.getFile("classpath:relatorios/disciplinas.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(listaDisciplinas);
@@ -64,9 +61,7 @@ public class ReportService {
             SimpleXlsxReportConfiguration configuration = new SimpleXlsxReportConfiguration();
             configuration.setOnePagePerSheet(true);
             configuration.setIgnoreGraphics(false);
-            File outputFile = new File("output.xlsx");
-            OutputStream fileOutputStream = new FileOutputStream(outputFile);
-            Exporter exporter = new JRXlsxExporter();
+            JRXlsxExporter exporter = new JRXlsxExporter();
             exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
             exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(new File(path+"\\disciplinas.xls")));
             exporter.setConfiguration(configuration);
