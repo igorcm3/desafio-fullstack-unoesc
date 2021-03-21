@@ -3,6 +3,7 @@ package br.edu.unoesc.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class Curso {
     private Integer vagas;
 
     // PERSISTENT gera um update na disciplina alterando seu curso_id
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REFRESH)
     @JoinColumn(name="curso_id")
     List<Disciplina> disciplinas = new ArrayList<>();
     

@@ -28,7 +28,7 @@ public class InscricaoController {
     CursoRepository cursoRepository;
 
     @GetMapping("/inscricoes")
-    public String exibirInscricao(Model model){
+    public String listarInscricoes(Model model){
 
         Usuario userLogado = usuarioService.getUsuarioLogado();
         if (userLogado == null){

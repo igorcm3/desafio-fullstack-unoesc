@@ -8,7 +8,10 @@
     <div class="container-sm mt-3">
       <div class="d-flex justify-content-between">
         <h3 class="mb-3">Lista de cursos</h3>
-        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/home/curso/new}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>        
+        <a sec:authorize="hasAnyAuthority('ADMIN')" th:href="@{/curso/new}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>        
+      </div>
+      <div>
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       </div>
       <table class="table">
         <thead class="table-dark">
@@ -24,8 +27,8 @@
               <td th:text="${curso.nome}"></td>
               <td th:text="${curso.disciplinas}"></td>
               <td sec:authorize="hasAnyAuthority('ADMIN')">
-                <a th:href="@{'/home/curso/delete/' + ${curso.id}}" class="btn btn-danger btn-sm">Excluir</a>
-                <a th:href="@{'/home/curso/edit/' + ${curso.id}}" class="btn btn-primary btn-sm">Editar</a>
+                <a th:href="@{'/curso/delete/' + ${curso.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a th:href="@{'/curso/edit/' + ${curso.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
           </th:block>

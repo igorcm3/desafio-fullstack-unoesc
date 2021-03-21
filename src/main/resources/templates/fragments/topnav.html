@@ -1,8 +1,15 @@
 <div th:fragment="navbar">
   <nav class="navbar navbar-dark" style="background-color:#457EAC; color: white;">
-    <li class="nav-item nav-link">
-      <a class="navbar-brand" href="/home/menu">Universidade</a>
-    </li>
+    <a class="navbar-brand" href="/home/menu">
+      <img src="https://images.vexels.com/media/users/3/166345/isolated/lists/01697b7dc49792ed5cbad87577b9ad2e-icone-de-silhueta-de-chapeu-de-formatura.png" alt="" width="48" height="48">
+      Portal acadêmico
+    </a>
+    <!-- <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-top">
+        Bootstrap
+      </a>
+    </div>         -->
     <li class="nav-item nav-link">
             <button type="button" style="background-color:transparent; color:white"class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               <span>
@@ -14,8 +21,7 @@
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" th:href="@{/logout}">Action</a></li>
             </ul>
-            <a class="dropdown-item" th:href="@{/logout}">sair</a>
-            <li><a class="dropdown-item" th:href="@{/logout}">Action</a></li>
+            <a class="" th:href="@{/logout}">Sair</a>
     </li>
     
   </nav>
@@ -27,13 +33,13 @@
         <a class="nav-item nav-link" href="/inscricao/inscricoes">Inscrição</a>
       </div>      
       <div sec:authorize="hasAnyAuthority('ALUNO', 'ADMIN')">
-        <a class="nav-item nav-link" href="/home/curso/viewCursos">Cursos</a>
+        <a class="nav-item nav-link" href="/curso/cursos">Cursos</a>
       </div> 
       <div sec:authorize="hasAnyAuthority('PROFESSOR', 'ADMIN')">     
-        <a class="nav-item nav-link" href="/home/disciplina/viewDisciplinas">Disciplinas</a>
+        <a class="nav-item nav-link" href="/disciplina/disciplinas">Disciplinas</a>
       </div>
       <div sec:authorize="hasAnyAuthority('ADMIN')">     
-        <a class="nav-item nav-link" href="/usuario/viewUsuarios">Usuários</a>
+        <a class="nav-item nav-link" href="/usuario/usuarios">Usuários</a>
       </div>
     </div>    
   </nav>

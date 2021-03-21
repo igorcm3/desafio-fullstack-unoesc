@@ -30,11 +30,11 @@ public class Usuario {
     private String cpf;
     private String senha;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REFRESH)
     @JoinColumn(name="professor_id")
     List<Disciplina> disciplinas = new ArrayList<>();    
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_perfil",
             joinColumns = @JoinColumn(name = "user_id"),

@@ -22,9 +22,9 @@ public class ReportsController {
     @GetMapping("/disciplina/{format}")
     public String generatedReport(@PathVariable String format, Model model, RedirectAttributes redirectAttributes) throws FileNotFoundException, JRException{
         String path = reportService.exportReport(format);
-        redirectAttributes.addFlashAttribute("message", path);
+        redirectAttributes.addFlashAttribute("messageDoc", path);
         redirectAttributes.addFlashAttribute("alertClass", "alert-primary");
-        return "redirect:/home/disciplina/viewDisciplinas";
+        return "redirect:/disciplina/disciplinas";
     }
 
 

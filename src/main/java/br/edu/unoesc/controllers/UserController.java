@@ -37,16 +37,20 @@ public class UserController {
         List<Perfil> listaPerfils = perfilRepository.findAll();
 
         model.addAttribute("listaPerfils", listaPerfils);
-        return "usuario/cadastro";
+        return "usuario/usuario_form";
     }
 
     @GetMapping("/cadastro/{id}")
-    public String user_cad_edicao(@PathVariable("id") Long id, Model model){
+    public String user_cad_edicao(@PathVariable("id") Long id, Model model, RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("message", "Erro ao salvar usuário!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         Usuario user = userRepository.getOne(id); 
         model.addAttribute("usuarioDto", user.toUsuarioDto());
         List<Perfil> listaPerfils = perfilRepository.findAll();
-        model.addAttribute("listaPerfils",  listaPerfils);   
-        return "/usuario/cadastro";
+        model.addAttribute("listaPerfils",  listaPerfils); 
+        redirectAttributes.addFlashAttribute("message", "Usuário alterado com sucesso!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-success");          
+        return "/usuario/usuario_form";
     }
 
     @PostMapping("/novo")
@@ -55,7 +59,7 @@ public class UserController {
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         redirectAttributes.addFlashAttribute(userDto);
         if(result.hasErrors()){
-            return "usuario/cadastro";    
+            return "usuario/usuarios";    
         }
         // Criptografando a senha
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -68,29 +72,30 @@ public class UserController {
             perfil = perfilRepository.findById(Long.valueOf(userDto.getId_perfil()));
         }else{
             perfil = perfilRepository.findById(Long.valueOf(3L)); // padrão insere como aluno
-        }
-        
+        }  
         user.setPerfils(perfil);
         String opcao = userDto.getId() == null ? "salvo" : "alterado";  
         redirectAttributes.addFlashAttribute("message", "Usuário "+opcao+" com sucesso!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         userRepository.save(user);
         redirectAttributes.addFlashAttribute(user.toUsuarioDto());
-        return "redirect:/usuario/cadastro";            
+        return "redirect:/usuario/usuarios";            
         
     }
 
-    @GetMapping("viewUsuarios")
-    public String viewUsuarios(Model model){
+    @GetMapping("usuarios")
+    public String listarUsuarios(Model model){
         List<Usuario> usuarios = userRepository.findAll();
         model.addAttribute("usuarios", usuarios);
-        return "usuario/viewUsuarios";
+        return "usuario/usuarios";
     }
 
     @GetMapping("/delete/{id}")
-    public String excluirUsuario(@PathVariable("id") Long id){        
+    public String excluirUsuario(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){  
+        redirectAttributes.addFlashAttribute("message", "Usuário excluido!");
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");               
         userRepository.deleteById(id);           
-        return "redirect:/usuario/viewUsuarios";
+        return "redirect:/usuario/usuarios";
     }
 
 }

@@ -1,5 +1,6 @@
 package br.edu.unoesc.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,11 +14,11 @@ public class Inscricao {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String codigo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="curso_id")
     private Curso curso;
 

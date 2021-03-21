@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="container mt-5" style="width: 500px">
-      <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+      
       <div class="card">
         <div class="card-header">Cadastro de usuário</div>
         <form
@@ -85,7 +85,7 @@
               value="Salvar"
             />
             <div sec:authorize="isAuthenticated()">
-              <a href="/usuario/viewUsuarios" class="link-secondary d-flex justify-content-end">voltar</a>
+              <a href="/usuario/usuarios" class="link-secondary d-flex justify-content-end">voltar</a>
             </div>
             <div sec:authorize="!isAuthenticated()">
               <a href="/login" class="link-secondary d-flex justify-content-end">voltar</a>

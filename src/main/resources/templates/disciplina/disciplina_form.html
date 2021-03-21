@@ -10,7 +10,7 @@
         <div class="input-field card-header">Cadastro de disciplina</div>
         <form
           th:object="${disciplina}"
-          action="/home/disciplina/novo"
+          action="/disciplina/save"
           class="card-body"
           method="POST"
         >
@@ -60,7 +60,7 @@
               type="submit"
               value="Salvar"
             />
-            <a href="/home/disciplina/viewDisciplinas" class="link-secondary d-flex justify-content-end">voltar</a>
+            <a href="/disciplina/disciplinas" class="link-secondary d-flex justify-content-end">voltar</a>
           </div>
           </div>
         </form>

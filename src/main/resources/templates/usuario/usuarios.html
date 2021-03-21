@@ -10,6 +10,9 @@
         <h3 class="mb-3">Lista de usuários cadastrados</h3>
         <a th:href="@{/usuario/cadastro}" class="btn btn-success btn-lg mb-2 mt-2">Novo</a>
       </div>
+      <div>
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+      </div>
       <table class="table">
         <thead class="table-dark">
           <th>Código</th>
