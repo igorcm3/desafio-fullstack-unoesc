@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.unoesc.dto.UsuarioDto;
+import br.edu.unoesc.models.Inscricao;
 import br.edu.unoesc.models.Perfil;
 import br.edu.unoesc.models.Usuario;
+import br.edu.unoesc.repository.InscricaoRepository;
 import br.edu.unoesc.repository.PerfilRepository;
 import br.edu.unoesc.repository.UsuarioRepository;
 
@@ -31,6 +33,9 @@ public class UserController {
 
     @Autowired
     private PerfilRepository perfilRepository;    
+
+    @Autowired
+    InscricaoRepository inscricaoRepository;
 
     @GetMapping("cadastro")
     public String user_cad(UsuarioDto userDto, Model model, BindingResult result){
@@ -95,9 +100,16 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     public String excluirUsuario(@PathVariable("id") Long id, RedirectAttributes redirectAttributes){  
-        redirectAttributes.addFlashAttribute("message", "Usuário excluido!");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");               
-        userRepository.deleteById(id);           
+        List<Inscricao> listaInscricoesPorCurso = inscricaoRepository.findByIdUsuario(id);
+        // Se já existem inscritos, não deixa excuir o usuário
+        if(listaInscricoesPorCurso.size()> 0){
+            redirectAttributes.addFlashAttribute("message", "Usuário não pode ser excluido pois já existem inscrições feitas pelo mesmo!");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("message", "Usuário excluido!");
+            userRepository.deleteById(id);    
+        }
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");           
         return "redirect:/usuario/usuarios";
     }
 
