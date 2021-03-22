@@ -27,10 +27,31 @@
               <td th:text="${curso.nome}"></td>
               <td th:text="${curso.disciplinas}"></td>
               <td sec:authorize="hasAnyAuthority('ADMIN')">
-                <a th:href="@{'/curso/delete/' + ${curso.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a 
+                  data-bs-toggle="modal" 
+                  th:attr="data-bs-target='#modal-delete'+${curso.id}"
+                  class="btn btn-danger btn-sm"
+                > Excluir</a>
                 <a th:href="@{'/curso/edit/' + ${curso.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
+            <!-- Modal exluir -->
+            <div class="modal modal-delete" th:id="modal-delete+${curso.id}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 id="delModalLabel">Excluir</h5>
+                      </div>
+                      <div class="modal-body">
+                          O curso será excluido, confirma esta ação?
+                      </div>
+                      <div class="modal-footer">
+                        <a th:href="@{'/curso/delete/' + ${curso.id}}" class="btn btn-success btn-sm">Confirmar</a>
+                          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                      </div>
+                  </div>
+              </div>
+            </div>            
           </th:block>
         </tbody>
       </table>

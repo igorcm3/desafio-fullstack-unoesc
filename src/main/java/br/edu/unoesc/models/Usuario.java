@@ -17,8 +17,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import br.edu.unoesc.dto.PerfilDto;
 import br.edu.unoesc.dto.UsuarioDto;
 

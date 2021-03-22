@@ -27,10 +27,31 @@
               <td th:text="${user.nome}"></td>
               <td th:text="${user.cpf}"></td>
               <td>
-                <a th:href="@{'/usuario/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a 
+                  data-bs-toggle="modal" 
+                  th:attr="data-bs-target='#modal-delete'+${user.id}"
+                  class="btn btn-danger btn-sm"
+                >Excluir</a>                
                 <a th:href="@{'/usuario/cadastro/' + ${user.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
+            <!-- Modal exluir -->
+            <div class="modal modal-delete" th:id="modal-delete+${user.id}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 id="delModalLabel">Excluir</h5>
+                      </div>
+                      <div class="modal-body">
+                          O usuário será excluido, confirma esta ação?
+                      </div>
+                      <div class="modal-footer">
+                        <a th:href="@{'/usuario/delete/' + ${user.id}}" class="btn btn-success btn-sm">Confirmar</a>
+                          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                      </div>
+                  </div>
+              </div>
+            </div>            
           </th:block>
         </tbody>
       </table>

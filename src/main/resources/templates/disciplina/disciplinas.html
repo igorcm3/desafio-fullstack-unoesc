@@ -2,6 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
   <head th:replace="fragments/head :: head">
     <title>Lista de disciplinas</title>
+    <script>
+      
+        $('#deleteAssignmentModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var objectName = button.data('object-name') // Extract info from data-object-name attribute
+
+        var modal = $(this)
+        modal.find('.modal-body p').text('Confirma' + objectName + '?')
+        })
+
+      
+    </script>
   </head>
   <body>
     <div th:replace="fragments/topnav :: navbar"></div>
@@ -27,10 +39,31 @@
               <td th:text="${dis.nome}"></td>
               <td th:text="${dis.professor}"></td>
               <td sec:authorize="hasAnyAuthority('ADMIN')">
-                <a th:href="@{'/disciplina/delete/' + ${dis.id}}" class="btn btn-danger btn-sm">Excluir</a>
+                <a 
+                  data-bs-toggle="modal" 
+                  th:attr="data-bs-target='#modal-delete'+${dis.id}"
+                  class="btn btn-danger btn-sm"
+                >Excluir</a>
                 <a th:href="@{'/disciplina/edit/' + ${dis.id}}" class="btn btn-primary btn-sm">Editar</a>
               </td>
             </tr>
+            <!-- Modal exluir -->
+            <div class="modal modal-delete" th:id="modal-delete+${dis.id}">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 id="delModalLabel">Excluir</h5>
+                      </div>
+                      <div class="modal-body">
+                          A disciplina será excluida, confirma esta ação?
+                      </div>
+                      <div class="modal-footer">
+                        <a th:href="@{'/disciplina/delete/' + ${dis.id}}" class="btn btn-success btn-sm">Confirmar</a>
+                          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                      </div>
+                  </div>
+              </div>
+            </div>
           </th:block>
         </tbody>
         <tfoot sec:authorize="hasAnyAuthority('PROFESSOR')">
@@ -44,5 +77,4 @@
       </table>
       <div th:if="${messageDoc}" th:text="${messageDoc}" th:class="${'alert ' + alertClass}"/>
     </div>
-  </body>
 </html>
