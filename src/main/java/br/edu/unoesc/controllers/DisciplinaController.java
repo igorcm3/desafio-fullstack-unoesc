@@ -73,7 +73,7 @@ public class DisciplinaController {
             }
         }
         model.addAttribute("disciplina", disciplina);
-        model.addAttribute("disciplina", listaProfessores);
+        model.addAttribute("listaProfessores", listaProfessores);
 
         return "/disciplina/disciplina_form";
     }

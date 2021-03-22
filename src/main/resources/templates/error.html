@@ -9,10 +9,10 @@
     <div th:replace="fragments/topnav :: navbar"></div>
     <div class="container mt-3">
       <div class="alert alert-danger" role="alert">
-        <h3 th:text="|${httpStatus} - ${httpStatus.reasonPhrase} - Página não encontrada|"></h3>
-        <a href="/login" th:href="@{/login}" class="alert-link">Volte para o login</a><br>
+        <h5></h5>
+        <p th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|"></p>
         <a href="/login" th:href="@{/home/menu}" class="alert-link">Volte para o menu</a>
-        <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
+        <p th:utext="${errorMessage}"></p>
       </div>
     </div>
   </body>

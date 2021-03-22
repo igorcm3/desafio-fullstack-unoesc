@@ -42,16 +42,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/", "/login/**", "sing-in", "/usuario/cadastro", "/usuario/novo").permitAll()
+                .antMatchers("/inscricao/**").hasAnyAuthority("ALUNO")
+                .antMatchers("/usuario/usuarios").hasAnyAuthority("ADMIN")
+                .antMatchers("/disciplina/disciplinas").hasAnyAuthority("ADMIN", "PROFESSOR")
+                .antMatchers("/disciplina/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/curso/cursos").hasAnyAuthority("ADMIN, ALUNO")
+                .antMatchers("/curso/**").hasAnyAuthority("ADMIN")                
+                .antMatchers("/", "/usuario/cadastro", "/usuario/novo").permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .usernameParameter("cpf")
-                    .passwordParameter("senha")
-                    .defaultSuccessUrl("/home/menu").permitAll()
-                .and()
-                    .logout().permitAll();
+                .loginPage("/login")
+                .usernameParameter("cpf")
+                .passwordParameter("senha")
+                .defaultSuccessUrl("/home/menu").permitAll()
+            .and()
+                .logout().permitAll();
 
     }
 
