@@ -33,7 +33,7 @@ public class UserController {
     private PerfilRepository perfilRepository;    
 
     @GetMapping("cadastro")
-    public String user_cad(UsuarioDto userDto, Model model){
+    public String user_cad(UsuarioDto userDto, Model model, BindingResult result){
         List<Perfil> listaPerfils = perfilRepository.findAll();
 
         model.addAttribute("listaPerfils", listaPerfils);
@@ -59,7 +59,10 @@ public class UserController {
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         redirectAttributes.addFlashAttribute(userDto);
         if(result.hasErrors()){
-            return "usuario/usuarios";    
+            List<Perfil> listaPerfils = perfilRepository.findAll();
+            model.addAttribute("listaPerfils", listaPerfils);            
+            model.addAttribute("userDto", userDto);
+            return "usuario/usuario_form";    
         }
         // Criptografando a senha
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

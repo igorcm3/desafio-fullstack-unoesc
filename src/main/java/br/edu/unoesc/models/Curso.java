@@ -10,14 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Curso {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "O código não pode estar em branco.")
     private String codigo;
+    @NotBlank(message = "O nome não pode estar em branco.")
     private String nome;
+    @NotBlank(message = "O número de vagas deve ser informado.")
     private Integer vagas;
 
     // PERSISTENT gera um update na disciplina alterando seu curso_id

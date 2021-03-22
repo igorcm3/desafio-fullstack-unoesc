@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
 
 import br.edu.unoesc.dto.DisciplinaDto;
  
@@ -20,7 +21,9 @@ public class Disciplina {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message= "O código é obrigatório")
     private String codigo;
+    @NotBlank(message= "O nome é obrigatório")
     private String nome;
     
     @ManyToOne

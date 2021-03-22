@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,9 +51,15 @@ public class CursoController {
     }    
 
     @PostMapping("/save")
-    public String saveCurso(Curso curso, RedirectAttributes redirectAttributes){
+    public String saveCurso(Curso curso, BindingResult result, Model model, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("message", "Erro ao salvar curso!");
-        redirectAttributes.addFlashAttribute("alertClass", "alert-danger");        
+        redirectAttributes.addFlashAttribute("alertClass", "alert-danger"); 
+        if(result.hasErrors()){
+            List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
+            model.addAttribute("listaDisciplinas", listaDisciplinas);
+            model.addAttribute("curso", curso);
+            return "/curso/curso_form";    
+        }       
         String operacao = curso.getId() == null ? "inserido" : "alterado";
         redirectAttributes.addFlashAttribute("message", "Curso "+operacao+" com sucesso!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");  
@@ -63,10 +70,9 @@ public class CursoController {
     @GetMapping("/edit/{id}")
     public String showEditCursoForm(@PathVariable("id") Long id, Model model){          
         Curso curso = cursoRepository.findById(id).get(); 
-        List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();
+        List<Disciplina> listaDisciplinas = disciplinaRepository.findAll();        
         model.addAttribute("curso", curso);
         model.addAttribute("listaDisciplinas", listaDisciplinas);
-          
         return "/curso/curso_form";
     } 
 

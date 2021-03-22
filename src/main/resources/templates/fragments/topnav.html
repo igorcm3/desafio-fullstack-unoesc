@@ -3,27 +3,22 @@
     <a class="navbar-brand" href="/home/menu">
       <img src="https://images.vexels.com/media/users/3/166345/isolated/lists/01697b7dc49792ed5cbad87577b9ad2e-icone-de-silhueta-de-chapeu-de-formatura.png" alt="" width="48" height="48">
       Portal acadêmico
-    </a>
-    <!-- <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-top">
-        Bootstrap
-      </a>
-    </div>         -->
+    </a>     
     <li class="nav-item nav-link">
-            <button type="button" style="background-color:transparent; color:white"class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              <span>
-                <span sec:authentication="principal.authorities"></span>
-                <span sec:authorize="isAuthenticated()">:  
-                <span sec:authentication="name"></span>
-              </span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" th:href="@{/logout}">Action</a></li>
-            </ul>
-            <a class="" th:href="@{/logout}">Sair</a>
-    </li>
-    
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <span>
+                  <span sec:authentication="principal.authorities"></span>
+                  <span sec:authorize="isAuthenticated()">:  
+                  <span sec:authentication="name"></span>
+                </span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" th:href="@{/logout}">Sair</a></li>
+              </ul>
+            </div>
+
+      
   </nav>
   <nav
     class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3"
