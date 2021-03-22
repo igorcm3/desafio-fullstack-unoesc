@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import br.edu.unoesc.models.Perfil;
 import br.edu.unoesc.models.Usuario;
 public class UsuarioDto {
@@ -15,7 +17,7 @@ public class UsuarioDto {
     private String codigo;
     @NotBlank(message= "O nome é obrigatório")
     private String nome;
-    @NotBlank(message= "O CPF é obrigatório")
+    @CPF
     private String cpf;
     @NotBlank(message= "A senha é obrigatória")
     private String senha;

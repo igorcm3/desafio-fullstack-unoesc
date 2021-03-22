@@ -2,6 +2,8 @@ package br.edu.unoesc.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +53,7 @@ public class CursoController {
     }    
 
     @PostMapping("/save")
-    public String saveCurso(Curso curso, BindingResult result, Model model, RedirectAttributes redirectAttributes){
+    public String saveCurso(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes redirectAttributes){
         redirectAttributes.addFlashAttribute("message", "Erro ao salvar curso!");
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger"); 
         if(result.hasErrors()){

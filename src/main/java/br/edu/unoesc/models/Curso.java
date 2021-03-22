@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Curso {
@@ -21,7 +22,7 @@ public class Curso {
     private String codigo;
     @NotBlank(message = "O nome não pode estar em branco.")
     private String nome;
-    @NotBlank(message = "O número de vagas deve ser informado.")
+    @NotNull(message = "O número de vagas deve ser informado.")
     private Integer vagas;
 
     // PERSISTENT gera um update na disciplina alterando seu curso_id

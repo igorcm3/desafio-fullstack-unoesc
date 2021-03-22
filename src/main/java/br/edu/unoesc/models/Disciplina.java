@@ -12,10 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-
-import br.edu.unoesc.dto.DisciplinaDto;
- 
+import javax.validation.constraints.NotBlank; 
 @Entity
 public class Disciplina {
 
@@ -61,13 +58,6 @@ public class Disciplina {
         this.nome = nome;
     } 
 
-    public DisciplinaDto toDisciplinaDto(){
-        DisciplinaDto disciplinaDto = new DisciplinaDto();
-        disciplinaDto.setId(id);
-        disciplinaDto.setCodigo(codigo);
-        disciplinaDto.setNome(nome);
-        return disciplinaDto;
-    }
     public Curso getCurso() {
         return curso;
     }

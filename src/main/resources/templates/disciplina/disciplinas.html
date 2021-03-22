@@ -42,9 +42,7 @@
           </td>
         </tfoot>        
       </table>
-
-      <div th:if="${messageDoc}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
-
+      <div th:if="${messageDoc}" th:text="${messageDoc}" th:class="${'alert ' + alertClass}"/>
     </div>
   </body>
 </html>

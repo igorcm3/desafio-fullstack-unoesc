@@ -1,5 +1,6 @@
 package br.edu.unoesc.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -47,12 +48,12 @@ public class DisciplinaController {
     @GetMapping("new")
     public String showDisciplinaForm(Model model) {
         // Perfil = 2 -> Professor
-        List<Usuario> listaProfessores = usuarioRepository.findAll();
+        List<Usuario> listaUsers = usuarioRepository.findAll();
+        List<Usuario> listaProfessores = new ArrayList<>();
         // TODO: Implementar filtro para listar professores direto pela consulta
-        for (int i = 0; i < listaProfessores.size(); i++) {
-            Usuario p = listaProfessores.get(i);
-            if (!p.isProfessor()) {
-                listaProfessores.remove(p);
+        for (Usuario user : listaUsers) {
+            if (user.isProfessor()) {
+                listaProfessores.add(user);
             }
         }
         model.addAttribute("disciplina", new Disciplina());
@@ -63,12 +64,12 @@ public class DisciplinaController {
     @GetMapping("/edit/{id}")
     public String disciplinaEdicao(@PathVariable("id") Long id, Model model) {
         Disciplina disciplina = disciplinaRepository.findById(id).get();
-        List<Usuario> listaProfessores = usuarioRepository.findAll();
+        List<Usuario> listaUsers = usuarioRepository.findAll();
+        List<Usuario> listaProfessores = new ArrayList<>();
         // TODO: Implementar filtro para listar professores direto pela consulta
-        for (int i = 0; i < listaProfessores.size(); i++) {
-            Usuario p = listaProfessores.get(i);
-            if (!p.isProfessor()) {
-                listaProfessores.remove(p);
+        for (Usuario user : listaUsers) {
+            if (user.isProfessor()) {
+                listaProfessores.add(user);
             }
         }
         model.addAttribute("disciplina", disciplina);
@@ -92,12 +93,12 @@ public class DisciplinaController {
         redirectAttributes.addFlashAttribute("alertClass", "alert-danger");
         redirectAttributes.addFlashAttribute(disciplina);
         if (result.hasErrors()) {
-            List<Usuario> listaProfessores = usuarioRepository.findAll();
+            List<Usuario> listaUsers = usuarioRepository.findAll();
+            List<Usuario> listaProfessores = new ArrayList<>();
             // TODO: Implementar filtro para listar professores direto pela consulta
-            for (int i = 0; i < listaProfessores.size(); i++) {
-                Usuario p = listaProfessores.get(i);
-                if (!p.isProfessor()) {
-                    listaProfessores.remove(p);
+            for (Usuario user : listaUsers) {
+                if (user.isProfessor()) {
+                    listaProfessores.add(user);
                 }
             }
             model.addAttribute("listaProfessores", listaProfessores);
