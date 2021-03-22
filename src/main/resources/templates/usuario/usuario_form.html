@@ -7,6 +7,7 @@
   <body>
     <div class="container mt-5" style="width: 500px">
       
+      <div th:if="${messageCad}" th:text="${messageCad}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
         <div class="card-header"><h5>Cadastro de usuário</h5></div>
         <form

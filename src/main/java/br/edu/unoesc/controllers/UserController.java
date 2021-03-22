@@ -37,6 +37,9 @@ public class UserController {
     @Autowired
     InscricaoRepository inscricaoRepository;
 
+    @Autowired
+    UsuarioService usuarioService;
+
     @GetMapping("cadastro")
     public String user_cad(UsuarioDto userDto, Model model, BindingResult result){
         List<Perfil> listaPerfils = perfilRepository.findAll();
@@ -87,8 +90,13 @@ public class UserController {
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
         userRepository.save(user);
         redirectAttributes.addFlashAttribute(user.toUsuarioDto());
-        return "redirect:/usuario/usuarios";            
         
+        if(usuarioService.userIsAnonymous()){
+            redirectAttributes.addFlashAttribute("message", "Usuário "+ user.getNome() +" criado com sucesso!");
+            redirectAttributes.addFlashAttribute("alertClass", "alert-success");                      
+            return "redirect:/login";
+        }
+        return "redirect:/usuario/usuarios";            
     }
 
     @GetMapping("usuarios")

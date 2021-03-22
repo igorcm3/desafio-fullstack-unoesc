@@ -14,7 +14,8 @@
           <div class="alert alert-info">
               Você deslogou do sistema.
           </div>
-        </div>             
+        </div> 
+        <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>            
         <div class="card">
           <div class="card-header"><h5>Login</h5></div>
           <form
