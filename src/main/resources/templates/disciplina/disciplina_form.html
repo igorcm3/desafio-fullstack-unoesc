@@ -7,7 +7,7 @@
     <div class="container mt-5" style="width: 500px">
       <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
-        <div class="input-field card-header">Cadastro de disciplina</div>
+        <div class="input-field card-header"><h5>Cadastro de disciplina</h5></div>
         <form
           th:object="${disciplina}"
           action="/disciplina/save"

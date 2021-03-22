@@ -7,8 +7,8 @@
     <div class="container mt-5 mb-5" style="width: 500px">
       <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
       <div class="card">
-        <div th:if="${inscricao.id == null}" class="input-field card-header">Nova inscrição</div>
-        <div th:unless="${inscricao.id == null}" class="input-field card-header">Altere o curso de sua inscrição</div>
+        <div th:if="${inscricao.id == null}" class="input-field card-header"><h5>Nova inscrição</h5></div>
+        <div th:unless="${inscricao.id == null}" class="input-field card-header"><h5>Altere o curso de sua inscrição</h5></div>
         <form
           th:object="${inscricao}"
           action="/inscricao/save"
